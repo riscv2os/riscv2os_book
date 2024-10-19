@@ -1,0 +1,44 @@
+
+
+```
+root@localhost:~/riscv2os_book/02-asm/_vm/rv32dump/01# gcc elf32dump.c -o elf32dump.o
+root@localhost:~/riscv2os_book/02-asm/_vm/rv32dump/01# ./elf32dump.o add_rv32.o 
+ELF 類型: 1
+機器類型: 243
+進入點位址: 0x0
+段表偏移量: 504
+程式表偏移量: 0
+段名稱: 
+段位址: 0x0
+段大小: 0
+段名稱: .text
+段位址: 0x0
+段大小: 48
+=====> 程式段 ....
+.text 段的前幾個字節:
+13 01 01 fe 23 2e 81 00 13 04 01 02 23 26 a4 fe 
+23 24 b4 fe 03 27 c4 fe 83 27 84 fe b3 07 f7 00 
+13 85 07 00 03 24 c1 01 13 01 01 02 67 80 00 00 
+
+段名稱: .data
+段位址: 0x0
+段大小: 0
+段名稱: .bss
+段位址: 0x0
+段大小: 0
+段名稱: .comment
+段位址: 0x0
+段大小: 35
+段名稱: .riscv.attributes
+段位址: 0x0
+段大小: 78
+段名稱: .symtab
+段位址: 0x0
+段大小: 144
+段名稱: .strtab
+段位址: 0x0
+段大小: 72
+段名稱: .shstrtab
+段位址: 0x0
+段大小: 71
+```

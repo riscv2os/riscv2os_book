@@ -1,4 +1,5 @@
 # ccc
+a.out
 *.o
 *.exe
 # kleine-riscv: verilator
