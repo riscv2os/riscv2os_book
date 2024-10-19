@@ -20,3 +20,6 @@ compile_flags.txt
 *.log
 *.vvp
 *.vcd
+
+# mini-riscv-os
+*.elf
