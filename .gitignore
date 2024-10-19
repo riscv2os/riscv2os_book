@@ -1,0 +1,22 @@
+# ccc
+*.o
+*.exe
+# kleine-riscv: verilator
+build/
+.vscode/
+obj_dir
+
+callgrind.*
+perf.*
+gmon.*
+test.*
+compile_flags.txt
+
+.vimspector.json
+
+# iverilog
+*.hex
+*.o
+*.log
+*.vvp
+*.vcd
