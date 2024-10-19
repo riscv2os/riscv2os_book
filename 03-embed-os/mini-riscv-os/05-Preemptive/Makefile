@@ -1,6 +1,6 @@
 CC = riscv64-unknown-elf-gcc
-CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima -mabi=ilp32
-
+# CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima -mabi=ilp32
+CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32gc -mabi=ilp32
 OBJ = \
 start.s \
 sys.s \
