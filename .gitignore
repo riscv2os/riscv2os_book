@@ -1,4 +1,5 @@
 # ccc
+.DS_Store
 a.out
 *.o
 *.exe
