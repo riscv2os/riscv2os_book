@@ -39,9 +39,9 @@ void read_section_headers(FILE *file, Elf32_Ehdr elf_header) {
         fseek(file, elf_header.e_shoff + i * sizeof(Elf32_Shdr), SEEK_SET);
         fread(&section_header, sizeof(Elf32_Shdr), 1, file);
 
-        printf("段名稱: %s\n", &section_names[section_header.sh_name]);
-        printf("段位址: 0x%x\n", section_header.sh_addr);
-        printf("段大小: %d\n", section_header.sh_size);
+        printf("段名稱: %-20s ", &section_names[section_header.sh_name]);
+        printf("段位址: 0x%08x ", section_header.sh_addr);
+        printf("段大小: %8d\n", section_header.sh_size);
 
         if (strcmp(&section_names[section_header.sh_name], ".text")==0) {
             printf("=====> 程式段 ....\n");
@@ -50,8 +50,13 @@ void read_section_headers(FILE *file, Elf32_Ehdr elf_header) {
             fseek(file, section_header.sh_offset, SEEK_SET);
             fread(text_section, 1, section_header.sh_size, file);
 
-            printf(".text 段的前幾個字節:\n");
-            for (int j = 0; j < section_header.sh_size && j < 64; j++) {
+            printf(".text 段的全部字節:\n");
+            for (int j = 0; j < section_header.sh_size; j++) { //  && j < 128
+                printf("%02x ", (unsigned char)text_section[j]);
+                if ((j + 1) % 16 == 0) printf("\n");
+            }
+            printf(".text 段反組譯結果:\n");
+            for (int j = 0; j < section_header.sh_size; j++) { //  && j < 128
                 printf("%02x ", (unsigned char)text_section[j]);
                 if ((j + 1) % 16 == 0) printf("\n");
             }
