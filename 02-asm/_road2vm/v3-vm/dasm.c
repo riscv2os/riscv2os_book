@@ -15,6 +15,15 @@ char get_riscv_instr_type(uint32_t instr) {
         case 0x03: // I 型指令（例如 lw）
         case 0x67: // I 型指令（例如 jalr）
             return 'I';
+        case 0x73: { // 系統呼叫類型指令 (例如 ecall, ebreak)
+            // 提取 funct3 (位於指令的第 12 到 14 位)
+            uint32_t funct3 = (instr >> 12) & 0x7;
+            if (funct3 == 0) {
+                // 這裡是 ecall 或 ebreak，但都屬於 I 型
+                return 'I';
+            }
+            return '?'; // 未知的系統呼叫類型
+        }
         case 0x23: // S 型指令（例如 sw）
             return 'S';
         case 0x63: // B 型指令（例如 beq, bne）
@@ -91,6 +100,15 @@ void disassemble_i_type(uint32_t instr, char *asm1) {
             sprintf(asm1, "ret");  // 這是 ret 指令的情況
         } else {
             sprintf(asm1, "jalr x%d, x%d, %d", rd, rs1, imm);
+        }
+        return;
+    }
+    // 處理 `ecall` 指令
+    if (opcode == 0x73 && funct3 == 0x0) { // opcode 為 1110011 且 funct3 為 000
+        if (imm == 0) {
+            sprintf(asm1, "ecall");  // 這是 ecall 指令
+        } else {
+            sprintf(asm1, "Unknown system call");
         }
         return;
     }

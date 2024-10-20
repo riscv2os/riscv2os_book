@@ -2,6 +2,8 @@
 a.out
 *.o
 *.exe
+*.elf
+
 # kleine-riscv: verilator
 build/
 .vscode/

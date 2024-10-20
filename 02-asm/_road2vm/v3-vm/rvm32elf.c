@@ -15,7 +15,7 @@ typedef struct block_t {
     int size;
 } block_t;
 
-int load_into_memory(FILE *file, Elf32_Ehdr elf_header, block_t *code_block) {
+void load_into_memory(FILE *file, Elf32_Ehdr elf_header, block_t *code_block) {
     Elf32_Shdr section_header;
     char *section_names;
 
