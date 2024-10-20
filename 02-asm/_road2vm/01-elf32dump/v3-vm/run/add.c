@@ -13,6 +13,16 @@ int sum(int n) {
     return s;
 }
 
+#define PUTS(s) \
+    asm volatile ( \
+        "la a7, %1\n" \
+        "ecall\n" \
+        : "=r" (s)      \
+        : "r" (s) \
+    )
+
 int main() {
     int s = sum(10);
+    char *msg = "hello";
+    PUTS(msg);
 }
