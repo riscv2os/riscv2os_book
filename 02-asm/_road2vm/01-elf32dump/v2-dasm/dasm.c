@@ -76,6 +76,7 @@ void disassemble_s_type(uint32_t instr, char *asm1) {
 
 // 反組譯 I 型指令的函數
 void disassemble_i_type(uint32_t instr, char *asm1) {
+    uint32_t opcode = instr & 0x7F;         // opcode 取自指令的最低 7 位
     uint32_t rd = (instr >> 7) & 0x1F;      // 目的暫存器
     uint32_t funct3 = (instr >> 12) & 0x7;  // 功能碼
     uint32_t rs1 = (instr >> 15) & 0x1F;    // 原暫存器1
@@ -84,6 +85,15 @@ void disassemble_i_type(uint32_t instr, char *asm1) {
     // 對 12-bit 的立即數進行符號擴展
     imm = sign_extend_12(imm);
 
+    // 處理 `jalr` 指令
+    if (opcode == 0x67 && funct3 == 0x0) { // opcode 為 1100111 且 funct3 為 000
+        if (rd == 0 && imm == 0 && rs1 == 1) {
+            sprintf(asm1, "ret");  // 這是 ret 指令的情況
+        } else {
+            sprintf(asm1, "jalr x%d, x%d, %d", rd, rs1, imm);
+        }
+        return;
+    }
     // 根據 funct3 決定不同的 I 型指令
     switch (funct3) {
         case 0x0: // addi
@@ -158,7 +168,7 @@ void disassemble_j_type(uint32_t instr, char *asm1) {
     imm = sign_extend_20(imm);
 
     // 構建 jal 指令
-    sprintf(asm1, "jal x%d, %d\n", rd, imm);
+    sprintf(asm1, "jal x%d, %d", rd, imm);
 }
 
 void disassemble(uint32_t instr, char *asm1) {
